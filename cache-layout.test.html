@@ -1,0 +1,13 @@
+<!doctype html><meta charset="utf-8"><title>Cache catalog grid regression</title>
+<style>
+.list{display:grid;gap:6px;height:520px;overflow:auto;width:700px}.group{overflow:hidden;border:1px solid}.head,.row{padding:7px 12px;font:13px/18px sans-serif}.fixed{grid-auto-rows:max-content;align-content:start}
+</style><pre id="result">Running</pre><div class="list" id="list"></div>
+<script>
+const list=document.querySelector('#list');
+for(let i=0;i<12;i++){const group=document.createElement('section');group.className='group';group.innerHTML='<div class="head">provider '+i+'</div>'+Array.from({length:1+i%6},(_,j)=>'<div class="row">model '+j+'</div>').join('');list.append(group);}
+const clipped=()=>[...list.children].filter(g=>g.scrollHeight>g.clientHeight+1).length;
+const before=clipped();list.classList.add('fixed');const after=clipped();
+const pass=before>0&&after===0&&list.scrollHeight>list.clientHeight;
+document.querySelector('#result').textContent=JSON.stringify({pass,beforeClipped:before,afterClipped:after,scrollHeight:list.scrollHeight,viewport:list.clientHeight},null,2);
+if(!pass)throw Error('cache group layout regression');
+</script>

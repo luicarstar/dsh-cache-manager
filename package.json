@@ -1,0 +1,59 @@
+{
+  "name": "dsh-cache-manager",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Request statistics, prompt-cache TTL countdown and optional cache keepalive for DeepSeek Harness.",
+  "license": "MIT",
+  "keywords": [
+    "dsh",
+    "dsh-plugin",
+    "deepseek-harness",
+    "prompt-cache",
+    "cache-keepalive",
+    "request-stats"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/luicarstar/dsh-cache-manager.git"
+  },
+  "bugs": {
+    "url": "https://github.com/luicarstar/dsh-cache-manager/issues"
+  },
+  "homepage": "https://github.com/luicarstar/dsh-cache-manager#readme",
+  "exports": {
+    ".": "./index.js",
+    "./client": "./client.js"
+  },
+  "files": [
+    "*.js",
+    "*.mjs",
+    "client/",
+    "cordis.patch.yml",
+    "README.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=22"
+  },
+  "peerDependencies": {
+    "@deepseek-ai/cordis": "^4.1.0"
+  },
+  "peerDependenciesMeta": {
+    "@deepseek-ai/cordis": {
+      "optional": true
+    }
+  },
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "platform": "web",
+      "immediately": true
+    }
+  },
+  "scripts": {
+    "build:client": "node build-client.mjs",
+    "test": "node --test cache-keepalive.test.mjs split.test.mjs"
+  }
+}
